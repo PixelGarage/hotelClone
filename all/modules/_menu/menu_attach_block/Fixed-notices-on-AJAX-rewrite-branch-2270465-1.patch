@@ -1,0 +1,37 @@
+From d472c08e085fc8868bd23e3ca3c087651a29b50e Mon Sep 17 00:00:00 2001
+From: Kyle Taylor <kyletaylored@gmail.com>
+Date: Mon, 19 May 2014 13:52:24 -0500
+Subject: [PATCH] Fixed notices on AJAX rewrite branch
+
+---
+ menu_attach_block.module | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/menu_attach_block.module b/menu_attach_block.module
+index fc23e1b..cd117dd 100644
+--- a/menu_attach_block.module
++++ b/menu_attach_block.module
+@@ -152,9 +152,9 @@ function menu_attach_block_link(&$variables) {
+     $variables['orientation'] = $options['menu_attach_block']['orientation'];
+     $variables['mlid'] = $options['menu_attach_block']['mlid'];
+ 
+-    if ($options['menu_attach_block']['use_ajax'] || !$options['menu_attach_block']['no_drop']) {
++    if (isset($options['menu_attach_block']['use_ajax']) || !isset($options['menu_attach_block']['no_drop'])) {
+       $menu_classes = array('menu-attach-block-drop-link');
+-      if ($options['menu_attach_block']['use_ajax']) {
++      if (isset($options['menu_attach_block']['use_ajax'])) {
+         $menu_classes[] = 'menu-ajax-enabled';
+       }
+       $attributes = array(
+@@ -174,7 +174,7 @@ function menu_attach_block_link(&$variables) {
+     }
+ 
+     // Get the block html if normal rendering is used (not ajax).
+-    if (!$options['menu_attach_block']['use_ajax']) {
++    if (!isset($options['menu_attach_block']['use_ajax'])) {
+       $variables['content'] = menu_attach_block_block_render($block['module'], $block['delta']);
+     }
+ 
+-- 
+1.8.5.2 (Apple Git-48)
+
